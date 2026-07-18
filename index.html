@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Eldest Daughter — Health guidance you don't have to fact-check</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#7A2440">
+<meta name="background-color" content="#FBF3EF">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Eldest Daughter">
+<meta name="description" content="Medically-reviewed health guidance for every stage of your life — no kitchen-table guessing, no influencer upsell, no midnight tab-hoarding.">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory: #FBF3EF;
+    --ivory-2: #FFFDFB;
+    --ink: #2A1620;
+    --ink-soft: #5C4550;
+    --wine: #7A2440;
+    --wine-deep: #591A2F;
+    --gold: #B08D57;
+    --gold-light: #E8DAC3;
+    --sage: #6E7F5C;
+    --sage-light: #E4E9DB;
+    --line: rgba(42,22,32,0.12);
+    --safe-t: env(safe-area-inset-top, 0px);
+    --safe-b: env(safe-area-inset-bottom, 0px);
+  }
+  *{ box-sizing: border-box; margin:0; padding:0; -webkit-tap-highlight-color: transparent; }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: #E9DED6;
+    color: var(--ink);
+    font-family: 'Public Sans', sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overscroll-behavior-y: none;
+  }
+  h1,h2,h3{ font-family: 'Fraunces', serif; font-weight: 500; color: var(--ink); letter-spacing: -0.01em; }
+  em{ font-style: italic; color: var(--wine); font-weight: 500; }
+  a{ color: inherit; text-decoration: none; }
+  button{ font-family: inherit; cursor: pointer; border: none; background:none; }
+  ::-webkit-scrollbar{ display:none; }
+
+  .eyebrow{
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.13em;
+    color: var(--wine); font-weight: 600; margin-bottom: 12px; display:inline-flex; align-items:center; gap:8px;
+  }
+  .eyebrow::before{ content:''; width:14px; height:1px; background: var(--wine); display:inline-block; }
+
+  /* ---------- APP SHELL ---------- */
+  #app{
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100dvh;
+    background: var(--ivory);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    isolation: isolate;
+  }
+  @media (min-width: 560px){
+    body{ display:flex; justify-content:center; padding: 28px 12px; }
+    #app{
+      min-height: min(860px, 100dvh);
+      height: min(860px, 100dvh);
+      border-radius: 34px;
+      overflow: hidden;
+      box-shadow: 0 40px 80px -30px rgba(42,22,32,0.45), 0 0 0 10px #17090f, 0 0 0 12px rgba(0,0,0,0.15);
+    }
+  }
+
+  /* ---------- TOP BAR ---------- */
+  .topbar{
+    position: sticky; top:0; z-index: 30;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: calc(16px + var(--safe-t)) 20px 14px;
+    background: rgba(251,243,239,0.88);
+    backdrop-filter: blur(10px) saturate(1.2);
+    border-bottom: 1px solid var(--line);
+  }
+  .logo{ font-family:'Fraunces', serif; font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
+  .logo span{ color: var(--wine); font-style: italic; font-weight: 500; }
+  .icon-btn{
+    width: 38px; height: 38px; border-radius: 50%; display:flex; align-items:center; justify-content:center;
+    background: var(--ivory-2); border: 1px solid var(--line);
+  }
+  .icon-btn svg{ width:18px; height:18px; }
+
+  /* ---------- MAIN / SCREENS ---------- */
+  main{ flex: 1 1 auto; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .screen{ display:none; padding: 24px 20px 28px; animation: fadein .25s ease; }
+  .screen.active{ display:block; }
+  @keyframes fadein{ from{ opacity:0; transform: translateY(6px);} to{ opacity:1; transform:none; } }
+
+  .section-head{ margin-bottom: 22px; }
+  .section-head h2{ font-size: 25px; line-height: 1.2; }
+  .section-head p{ font-size: 14.5px; color: var(--ink-soft); margin-top: 8px; }
+
+  /* ---------- HOME ---------- */
+  .hero h1{ font-size: 30px; line-height: 1.14; margin-bottom: 14px; }
+  .hero p.lede{ font-size: 15.5px; color: var(--ink-soft); margin-bottom: 22px; }
+  .hero-ctas{ display:flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
+  .btn-primary{
+    background: var(--wine); color: var(--ivory-2); padding: 15px 26px; border-radius: 16px;
+    font-size: 15px; font-weight: 600; text-align:center; display:block; width:100%;
+    transition: background .15s ease, transform .1s ease;
+  }
+  .btn-primary:active{ transform: scale(0.98); background: var(--wine-deep); }
+  .btn-secondary{
+    background: var(--ivory-2); color: var(--ink); border: 1px solid var(--line);
+    padding: 14px 26px; border-radius: 16px; font-size: 14.5px; font-weight: 500; text-align:center;
+  }
+  .btn-secondary:active{ transform: scale(0.98); }
+
+  .hero-visual{ position: relative; margin-bottom: 6px; }
+  .note-card{
+    background: var(--ivory-2); border: 1px solid var(--line); border-radius: 18px;
+    padding: 22px 20px 20px; box-shadow: 0 16px 32px -18px rgba(89,26,47,0.22);
+  }
+  .note-top{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 14px; }
+  .note-tag{ font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--sage); font-weight: 600; }
+  .note-q{ font-size: 14.5px; color: var(--ink-soft); margin-bottom: 12px; }
+  .note-a{ font-size: 15px; line-height: 1.5; margin-bottom: 14px; }
+  .note-source{
+    display:flex; align-items:center; gap:8px; font-size: 12px; color: var(--ink-soft);
+    border-top: 1px dashed var(--line); padding-top: 12px;
+  }
+  .dot{ width:6px; height:6px; border-radius:50%; background: var(--sage); flex-shrink:0; }
+  .margin-note{
+    display:inline-block; background: var(--gold-light);
+    color: var(--wine-deep); font-family:'Fraunces', serif; font-style: italic; font-size: 13px;
+    padding: 7px 14px; border-radius: 12px 12px 12px 3px; transform: rotate(-2deg);
+    margin-bottom: 12px;
+  }
+
+  /* ---------- PROBLEM CARDS (horizontal scroll) ---------- */
+  .hscroll{
+    display:flex; gap: 14px; overflow-x:auto; margin: 0 -20px; padding: 4px 20px 8px;
+    scroll-snap-type: x mandatory;
+  }
+  .problem-card{
+    background: var(--ivory-2); border: 1px solid var(--line); border-radius: 16px; padding: 22px 20px;
+    flex: 0 0 78%; scroll-snap-align: start;
+  }
+  .problem-card .num{ font-family:'Fraunces', serif; font-style: italic; font-size: 14px; color: var(--gold); margin-bottom: 14px; display:block; }
+  .problem-card h3{ font-size: 17px; font-weight: 500; margin-bottom: 8px; }
+  .problem-card p{ font-size: 14px; color: var(--ink-soft); }
+
+  /* ---------- STAGES ---------- */
+  .stage-row{ display:flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; }
+  .stage-chip{
+    border: 1px solid var(--line); color: var(--ink);
+    background: var(--ivory-2);
+    padding: 11px 18px; border-radius: 30px; font-size: 14px; font-weight: 500;
+  }
+  .stage-chip.on{ background: var(--wine); color: var(--ivory-2); border-color: var(--wine); }
+  .stage-detail{
+    background: var(--wine); border-radius: 18px; padding: 22px 20px; color: var(--ivory-2);
+    display:none;
+  }
+  .stage-detail.show{ display:block; animation: fadein .2s ease; }
+  .stage-detail .eyebrow{ color: var(--gold-light); }
+  .stage-detail .eyebrow::before{ background: var(--gold-light); }
+  .stage-detail h3{ color: var(--ivory-2); font-size: 19px; margin-bottom: 8px; }
+  .stage-detail p{ color: rgba(251,243,239,0.8); font-size: 14px; }
+
+  /* ---------- TRUST ---------- */
+  .trust-list{ display:flex; flex-direction:column; gap: 20px; margin-bottom: 30px; }
+  .trust-card{ display:flex; gap: 16px; align-items:flex-start; }
+  .trust-mark{
+    width: 42px; height: 42px; border-radius: 50%; background: var(--sage-light);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .trust-mark svg{ width:19px; height:19px; }
+  .trust-card h3{ font-size: 16px; font-weight: 500; margin-bottom: 4px; }
+  .trust-card p{ font-size: 13.5px; color: var(--ink-soft); }
+
+  .quote-card{
+    background: var(--gold-light); border-radius: 18px; padding: 26px 22px; margin-top: 8px;
+  }
+  .quote-card p{
+    font-family:'Fraunces', serif; font-style: italic; font-size: 18.5px; line-height: 1.4;
+    color: var(--wine-deep); margin-bottom: 16px;
+  }
+  .quote-attr{ font-size: 13px; color: var(--wine-deep); font-weight: 600; opacity: .75; }
+
+  /* ---------- ACCESS ---------- */
+  .cta-card{ background: var(--ink); border-radius: 20px; padding: 30px 24px; text-align:center; margin-bottom: 26px; }
+  .cta-card h2{ color: var(--ivory-2); font-size: 23px; margin-bottom: 10px; }
+  .cta-card p{ color: rgba(251,243,239,0.7); font-size: 14px; margin-bottom: 22px; }
+  .cta-form{ display:flex; flex-direction:column; gap: 10px; }
+  .cta-form input{
+    background: rgba(251,243,239,0.08); border: 1px solid rgba(251,243,239,0.25);
+    color: var(--ivory-2); padding: 14px 16px; border-radius: 14px; font-size: 14.5px; width: 100%;
+  }
+  .cta-form input::placeholder{ color: rgba(251,243,239,0.5); }
+  .cta-form button{
+    background: var(--gold-light); color: var(--wine-deep); padding: 14px 20px;
+    border-radius: 14px; font-size: 14.5px; font-weight: 600;
+  }
+  .cta-note{ font-size: 12.5px; color: rgba(251,243,239,0.55); margin-top: 14px; }
+
+  .install-row{
+    display:flex; align-items:center; gap: 14px; background: var(--sage-light);
+    border-radius: 16px; padding: 16px 18px; margin-bottom: 26px;
+  }
+  .install-row svg{ width:22px; height:22px; flex-shrink:0; }
+  .install-row .install-text h3{ font-size: 14.5px; margin-bottom: 2px; }
+  .install-row .install-text p{ font-size: 12.5px; color: var(--ink-soft); }
+  .install-row button{
+    margin-left:auto; background: var(--wine); color: var(--ivory-2); font-size: 13px; font-weight: 600;
+    padding: 9px 16px; border-radius: 30px; white-space:nowrap; flex-shrink:0;
+  }
+  #install-row{ display:none; }
+  #install-row.show{ display:flex; }
+
+  footer{ padding: 6px 0 10px; font-size: 12.5px; color: var(--ink-soft); text-align:center; }
+  footer .flinks{ display:flex; justify-content:center; gap: 20px; margin-top: 10px; }
+
+  /* ---------- BOTTOM NAV ---------- */
+  .bottom-nav{
+    position: sticky; bottom:0; z-index: 30; flex-shrink:0;
+    display:flex; background: rgba(255,253,251,0.92); backdrop-filter: blur(10px);
+    border-top: 1px solid var(--line);
+    padding: 8px 6px calc(8px + var(--safe-b));
+  }
+  .tab-btn{
+    flex:1; display:flex; flex-direction:column; align-items:center; gap: 4px;
+    padding: 6px 4px; border-radius: 12px; color: var(--ink-soft); font-size: 11px; font-weight: 500;
+  }
+  .tab-btn svg{ width:21px; height:21px; }
+  .tab-btn.active{ color: var(--wine); }
+  .tab-btn:active{ background: rgba(122,36,64,0.08); }
+
+  .toast{
+    position:absolute; left:50%; bottom: 90px; transform: translateX(-50%) translateY(20px);
+    background: var(--ink); color: var(--ivory-2); font-size: 13.5px; font-weight: 500;
+    padding: 12px 20px; border-radius: 30px; box-shadow: 0 12px 26px -10px rgba(0,0,0,0.4);
+    opacity:0; pointer-events:none; transition: opacity .25s ease, transform .25s ease; z-index: 50;
+    white-space: nowrap;
+  }
+  .toast.show{ opacity:1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<div id="app">
+
+  <header class="topbar">
+    <div class="logo">Eldest <span>Daughter</span></div>
+    <button class="icon-btn" id="install-icon-btn" aria-label="Install app">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#7A2440" stroke-width="1.8"><path d="M12 4v12m0 0l-4-4m4 4l4-4"/><path d="M5 18v1a2 2 0 002 2h10a2 2 0 002-2v-1"/></svg>
+    </button>
+  </header>
+
+  <main>
+
+    <!-- HOME -->
+    <section class="screen active" id="screen-home">
+      <div class="hero">
+        <div class="eyebrow">Founded by a family of eldest daughters</div>
+        <h1>You've always been the one who <em>knew</em>.</h1>
+        <p class="lede">Eldest Daughter gives you medically-reviewed answers for every stage of your life — no kitchen-table guessing, no influencer upsell, no twelve open tabs at midnight.</p>
+        <div class="hero-ctas">
+          <button class="btn-primary" data-goto="screen-access">Get early access</button>
+          <button class="btn-secondary" data-goto="screen-stages">See how it works</button>
+        </div>
+        <div class="hero-visual">
+          <span class="margin-note">verified, not vibes</span>
+          <div class="note-card">
+            <div class="note-top">
+              <span class="note-tag">Postpartum · week 6</span>
+            </div>
+            <p class="note-q">"Is it normal to still be bleeding six weeks after delivery?"</p>
+            <p class="note-a">For most people, yes — light spotting can continue through week six. Bleeding that's heavy, bright red, or paired with fever isn't, and should be checked same-day.</p>
+            <div class="note-source"><span class="dot"></span> Reviewed against ACOG postpartum guidelines</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-head" style="margin-top:36px;">
+        <div class="eyebrow">The problem</div>
+        <h2>Three places health advice usually comes from.</h2>
+      </div>
+      <div class="hscroll">
+        <div class="problem-card">
+          <span class="num">01</span>
+          <h3>The family group chat</h3>
+          <p>Well-meaning, often outdated. Passed down like folklore, rarely sourced, and hard to push back on without starting a whole conversation.</p>
+        </div>
+        <div class="problem-card">
+          <span class="num">02</span>
+          <h3>The algorithm</h3>
+          <p>Confident, aesthetic, and usually selling something. Built to hold your attention, not to be right — and it rarely says which one it's optimizing for.</p>
+        </div>
+        <div class="problem-card">
+          <span class="num">03</span>
+          <h3>The 2am search</h3>
+          <p>Twelve tabs, no consensus, and a feed of unrelated horror stories. You end up more anxious than when you started typing.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAGES -->
+    <section class="screen" id="screen-stages">
+      <div class="section-head">
+        <div class="eyebrow">One app, every stage</div>
+        <h2>Built around your actual life.</h2>
+        <p>Puberty, pregnancy, and perimenopause don't happen on the same page — so your information shouldn't live there either. Tap a stage.</p>
+      </div>
+      <div class="stage-row" id="stage-row">
+        <button class="stage-chip" data-detail="Puberty grows up fast — expect straight answers on periods, growth, and body changes, written for the age it's actually for.">Puberty</button>
+        <button class="stage-chip" data-detail="High school brings new questions about your body and mind, sourced instead of scrolled.">High school</button>
+        <button class="stage-chip" data-detail="College years: sexual health, mental health, and independence — without a parent in the room.">College</button>
+        <button class="stage-chip" data-detail="Early career: building habits that last, on a schedule that doesn't leave time for research rabbit holes.">Early career</button>
+        <button class="stage-chip on" data-detail="Trying to conceive: cycle tracking, fertility basics, and what's actually worth worrying about — reviewed by reproductive endocrinologists.">Trying to conceive</button>
+        <button class="stage-chip" data-detail="Pregnancy, trimester by trimester, with guidance that matches ACOG — not whatever's trending this week.">Pregnancy</button>
+        <button class="stage-chip" data-detail="Postpartum recovery, physical and mental, with clear lines on what's normal and what needs a same-day call.">Postpartum</button>
+        <button class="stage-chip" data-detail="Perimenopause symptoms are wildly underdiscussed. We name them clearly and tell you what helps.">Perimenopause</button>
+        <button class="stage-chip" data-detail="Menopause guidance that treats it as a life stage, not a punchline — hormones, sleep, and everything between.">Menopause</button>
+        <button class="stage-chip" data-detail="Caregiving years: navigating a parent's health while managing your own, without losing either thread.">Caregiving years</button>
+        <button class="stage-chip" data-detail="Later life: aging well, medication questions, and advocating for yourself in appointments.">Later life</button>
+      </div>
+      <div class="stage-detail show" id="stage-detail">
+        <div class="eyebrow">Trying to conceive</div>
+        <h3>What this stage covers</h3>
+        <p>Cycle tracking, fertility basics, and what's actually worth worrying about — reviewed by reproductive endocrinologists.</p>
+      </div>
+    </section>
+
+    <!-- TRUST -->
+    <section class="screen" id="screen-trust">
+      <div class="section-head">
+        <div class="eyebrow">Why trust us</div>
+        <h2>Every answer shows its work.</h2>
+      </div>
+      <div class="trust-list">
+        <div class="trust-card">
+          <div class="trust-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#3F4A34" stroke-width="1.8"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <div><h3>Reviewed by clinicians</h3><p>OB-GYNs, endocrinologists, and midwives check every stage's content before it ships.</p></div>
+        </div>
+        <div class="trust-card">
+          <div class="trust-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#3F4A34" stroke-width="1.8"><path d="M6 4h9l4 4v12H6z"/><path d="M9 10h7M9 14h7M9 18h4"/></svg></div>
+          <div><h3>Every claim cited</h3><p>Tap any answer to see the guideline or study behind it — no unlabeled "trust us."</p></div>
+        </div>
+        <div class="trust-card">
+          <div class="trust-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#3F4A34" stroke-width="1.8"><path d="M4 12l5 5L20 6"/></svg></div>
+          <div><h3>Zero sponsored content</h3><p>We don't sell placement to supplement brands. If it's in the app, it's there because it's accurate.</p></div>
+        </div>
+      </div>
+      <div class="quote-card">
+        <p>"We are the eldest daughters in our own families — the ones who've been researching this stuff for our mothers, our sisters, and ourselves our whole lives. We built the tool we wished someone had handed us."</p>
+        <div class="quote-attr">— The Eldest Daughter founding team</div>
+      </div>
+    </section>
+
+    <!-- ACCESS -->
+    <section class="screen" id="screen-access">
+      <div class="section-head">
+        <div class="eyebrow">Join us</div>
+        <h2>Stop being the only one who checks.</h2>
+      </div>
+
+      <div class="install-row" id="install-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#3F4A34" stroke-width="1.8"><path d="M12 4v12m0 0l-4-4m4 4l4-4"/><path d="M5 18v1a2 2 0 002 2h10a2 2 0 002-2v-1"/></svg>
+        <div class="install-text"><h3>Install the app</h3><p>Add to your home screen for one-tap access.</p></div>
+        <button id="install-btn">Install</button>
+      </div>
+
+      <div class="cta-card">
+        <h2>Get early access</h2>
+        <p>We're onboarding stage by stage, starting this fall.</p>
+        <form class="cta-form" id="signup-form">
+          <input type="email" placeholder="you@email.com" required autocomplete="email" inputmode="email">
+          <button type="submit">Get early access</button>
+        </form>
+        <p class="cta-note">No spam. One email when your stage opens up.</p>
+      </div>
+
+      <footer>
+        <div>© 2026 Eldest Daughter</div>
+        <div class="flinks">
+          <a href="#">About</a>
+          <a href="#">Sources</a>
+          <a href="#">Privacy</a>
+        </div>
+      </footer>
+    </section>
+
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="tab-btn active" data-goto="screen-home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 11.5L12 4l8 7.5"/><path d="M6 10v9a1 1 0 001 1h4v-6h2v6h4a1 1 0 001-1v-9"/></svg>
+      Home
+    </button>
+    <button class="tab-btn" data-goto="screen-stages">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/></svg>
+      Stages
+    </button>
+    <button class="tab-btn" data-goto="screen-trust">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></svg>
+      Trust
+    </button>
+    <button class="tab-btn" data-goto="screen-access">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
+      Join
+    </button>
+  </nav>
+
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+  // ---- Tab / screen navigation ----
+  const screens = document.querySelectorAll('.screen');
+  const tabBtns = document.querySelectorAll('.tab-btn');
+
+  function goto(id, pushHash = true){
+    screens.forEach(s => s.classList.toggle('active', s.id === id));
+    tabBtns.forEach(b => b.classList.toggle('active', b.dataset.goto === id));
+    document.querySelector('main').scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+    if (pushHash) history.replaceState(null, '', '#' + id.replace('screen-', ''));
+  }
+
+  document.querySelectorAll('[data-goto]').forEach(el => {
+    el.addEventListener('click', () => goto(el.dataset.goto));
+  });
+
+  const initial = location.hash.replace('#', '');
+  if (initial && document.getElementById('screen-' + initial)) {
+    goto('screen-' + initial, false);
+  }
+
+  // ---- Stage picker ----
+  const stageChips = document.querySelectorAll('.stage-chip');
+  const stageDetail = document.getElementById('stage-detail');
+  stageChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      stageChips.forEach(c => c.classList.remove('on'));
+      chip.classList.add('on');
+      stageDetail.querySelector('.eyebrow').textContent = chip.textContent;
+      stageDetail.querySelector('p').textContent = chip.dataset.detail;
+      stageDetail.classList.add('show');
+    });
+  });
+
+  // ---- Toast helper ----
+  const toastEl = document.getElementById('toast');
+  let toastTimer;
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2400);
+  }
+
+  // ---- Signup form (client-side only, no backend) ----
+  document.getElementById('signup-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    toast("You're on the list — welcome.");
+    e.target.reset();
+  });
+
+  // ---- Install prompt (PWA) ----
+  let deferredPrompt = null;
+  const installRow = document.getElementById('install-row');
+  const installBtn = document.getElementById('install-btn');
+  const installIconBtn = document.getElementById('install-icon-btn');
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installRow.classList.add('show');
+  });
+
+  async function promptInstall(){
+    if (!deferredPrompt) { toast('Use your browser menu to "Add to Home Screen".'); return; }
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') installRow.classList.remove('show');
+    deferredPrompt = null;
+  }
+  installBtn.addEventListener('click', promptInstall);
+  installIconBtn.addEventListener('click', promptInstall);
+
+  window.addEventListener('appinstalled', () => {
+    installRow.classList.remove('show');
+    toast('Installed — find it on your home screen.');
+  });
+
+  // ---- Service worker ----
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    });
+  }
+</script>
+</body>
+</html>
