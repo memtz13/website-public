@@ -20,6 +20,22 @@ can be in, and the send-button state for each:
 | 7 | Streaming response | Repurposed as Stop/Cancel (enabled) |
 | 8 | Component disabled | Disabled — all controls locked |
 | 9 | Error (validation failure) | Disabled |
+| 9b | Upload failed | Disabled |
+
+**How state 9 resolves:** it isn't a dead end — the box re-validates live as
+the user acts, with no manual dismiss. Removing the offending chip (or
+attaching a valid replacement, or trimming under the char limit) clears the
+ring and error text immediately, and typed text is preserved throughout. It
+falls back to whichever state actually matches what's left: State 1 (Empty)
+if nothing remains, State 3 (Ready to send) if text is still present, or
+State 4 (Attachment attached) if a valid file replaced the bad one.
+
+**State 9 vs 9b — two different failure shapes:** state 9 is a **validation**
+error (bad file type, over the size/char limit) — instant, client-side, so
+the whole box red-rings until the offending content is removed. State 9b is
+an **upload** failure (valid file, network drop mid-upload) — that one is
+scoped to the individual attachment chip (red chip + "Retry"), not the whole
+box, since the rest of the draft was never actually invalid.
 
 **Disable-send rules:**
 - Trimmed text is empty **and** there are no attachments.

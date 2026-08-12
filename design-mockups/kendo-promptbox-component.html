@@ -337,6 +337,43 @@
   .promptbox-input--filled {
     color: #1f2937;
   }
+
+  /* resolution note under a state card */
+  .resolution-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    font-size: 12px;
+    color: #166534;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 8px;
+    padding: 8px 10px;
+    margin: 2px 0 0 0;
+  }
+  .resolution-note svg {
+    width: 14px;
+    height: 14px;
+    flex: none;
+    margin-top: 1px;
+  }
+
+  /* attachment chip in an upload-failed state (distinct from the whole-box error ring) */
+  .attachment-chip--failed {
+    border-color: #fecaca;
+    background: #fef2f2;
+    color: #b91c1c;
+  }
+  .attachment-chip--failed svg {
+    color: #dc2626;
+  }
+  .attachment-chip .retry {
+    font-size: 11px;
+    font-weight: 700;
+    color: #dc2626;
+    text-decoration: underline;
+    white-space: nowrap;
+  }
 </style>
 </head>
 <body>
@@ -689,6 +726,47 @@
           </div>
         </div>
         <p class="error-text">File exceeds 25 MB limit — remove it to continue.</p>
+        <p class="resolution-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Resolves live, no dismiss action needed: removing the chip (or attaching a valid replacement) instantly clears the ring and error text. Typed text is preserved. Falls back to State 1 (Empty) if nothing else remains, or State 3 (Ready to send) if text is still present.
+        </p>
+      </div>
+
+      <!-- 9b. Upload failed (distinct from validation error) -->
+      <div class="state-card">
+        <div class="state-heading-row">
+          <span class="state-name">9b · Upload failed</span>
+          <span class="state-badge state-badge--disabled">Send disabled</span>
+        </div>
+        <p class="state-caption">Valid file, but the upload itself failed (e.g. network drop) — scoped to the chip, not the whole box.</p>
+        <div class="promptbox promptbox--medium">
+          <div class="attachment-row">
+            <div class="attachment-chip attachment-chip--failed">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span>quarterly-report.pdf</span>
+              <span class="retry">Retry</span>
+              <svg class="remove" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </div>
+          </div>
+          <div class="promptbox-input">Message...</div>
+          <div class="promptbox-toolbar">
+            <div class="toolbar-left">
+              <div class="icon-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+              </div>
+              <div class="icon-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+              </div>
+            </div>
+            <div class="action-button action-button--disabled">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+            </div>
+          </div>
+        </div>
+        <p class="resolution-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          The box itself never red-rings for this case — only the chip does. Clicking "Retry" re-attempts just that upload; the rest of the draft is untouched. Send stays disabled until the chip clears its failed state (upload succeeds, or the chip is removed).
+        </p>
       </div>
 
     </div>
