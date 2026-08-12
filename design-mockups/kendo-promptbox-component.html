@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Kendo PromptBox — Figma-ready mockup</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 64px;
+    background: #f4f5f7;
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  /* ---------- page frame ---------- */
+  .page {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .page-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+  }
+  .page-subtitle {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 4px 0 0 0;
+  }
+
+  /* ---------- variant block ---------- */
+  .variant-block {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .variant-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #8b8f98;
+  }
+
+  /* ---------- promptbox shell ---------- */
+  .promptbox {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid #e1e3e8;
+    border-radius: 16px;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+  }
+  .promptbox-input {
+    color: #9aa0aa;
+    font-family: inherit;
+  }
+  .promptbox-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .toolbar-left {
+    display: flex;
+    align-items: center;
+  }
+
+  /* icon buttons (file-select, speech-to-text) */
+  .icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    color: #4b5563;
+    flex: none;
+  }
+  .icon-button svg {
+    display: block;
+  }
+
+  /* action / send button (primary) */
+  .action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: #4f46e5;
+    border: none;
+    color: #ffffff;
+    flex: none;
+  }
+  .action-button svg {
+    display: block;
+  }
+
+  /* ---------- size: small ---------- */
+  .promptbox--small {
+    padding: 10px 12px 8px 12px;
+    gap: 8px;
+  }
+  .promptbox--small .promptbox-input {
+    font-size: 13px;
+    padding: 2px 2px 6px 2px;
+  }
+  .promptbox--small .toolbar-left {
+    gap: 6px;
+  }
+  .promptbox--small .icon-button {
+    width: 28px;
+    height: 28px;
+  }
+  .promptbox--small .icon-button svg {
+    width: 14px;
+    height: 14px;
+  }
+  .promptbox--small .action-button {
+    width: 28px;
+    height: 28px;
+  }
+  .promptbox--small .action-button svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* ---------- size: medium ---------- */
+  .promptbox--medium {
+    padding: 14px 14px 10px 14px;
+    gap: 10px;
+  }
+  .promptbox--medium .promptbox-input {
+    font-size: 14px;
+    padding: 2px 2px 8px 2px;
+  }
+  .promptbox--medium .toolbar-left {
+    gap: 8px;
+  }
+  .promptbox--medium .icon-button {
+    width: 34px;
+    height: 34px;
+  }
+  .promptbox--medium .icon-button svg {
+    width: 16px;
+    height: 16px;
+  }
+  .promptbox--medium .action-button {
+    width: 34px;
+    height: 34px;
+  }
+  .promptbox--medium .action-button svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* ---------- size: large ---------- */
+  .promptbox--large {
+    padding: 18px 18px 12px 18px;
+    gap: 12px;
+  }
+  .promptbox--large .promptbox-input {
+    font-size: 16px;
+    padding: 2px 2px 10px 2px;
+  }
+  .promptbox--large .toolbar-left {
+    gap: 10px;
+  }
+  .promptbox--large .icon-button {
+    width: 42px;
+    height: 42px;
+  }
+  .promptbox--large .icon-button svg {
+    width: 20px;
+    height: 20px;
+  }
+  .promptbox--large .action-button {
+    width: 42px;
+    height: 42px;
+  }
+  .promptbox--large .action-button svg {
+    width: 20px;
+    height: 20px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="page">
+    <div>
+      <h1 class="page-title">PromptBox</h1>
+      <p class="page-subtitle">Single-mode prompt input · small / medium / large</p>
+    </div>
+
+    <!-- ===================== SMALL ===================== -->
+    <div class="variant-block">
+      <span class="variant-label">Small</span>
+      <div class="promptbox promptbox--small">
+        <div class="promptbox-input">Small size...</div>
+        <div class="promptbox-toolbar">
+          <div class="toolbar-left">
+            <!-- file select button -->
+            <div class="icon-button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+              </svg>
+            </div>
+            <!-- speech to text button -->
+            <div class="icon-button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                <line x1="12" y1="19" x2="12" y2="23"/>
+                <line x1="8" y1="23" x2="16" y2="23"/>
+              </svg>
+            </div>
+          </div>
+          <!-- action / send button -->
+          <div class="action-button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="19" x2="12" y2="5"/>
+              <polyline points="5 12 12 5 19 12"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== MEDIUM ===================== -->
+    <div class="variant-block">
+      <span class="variant-label">Medium</span>
+      <div class="promptbox promptbox--medium">
+        <div class="promptbox-input">Medium size...</div>
+        <div class="promptbox-toolbar">
+          <div class="toolbar-left">
+            <div class="icon-button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+              </svg>
+            </div>
+            <div class="icon-button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                <line x1="12" y1="19" x2="12" y2="23"/>
+                <line x1="8" y1="23" x2="16" y2="23"/>
+              </svg>
+            </div>
+          </div>
+          <div class="action-button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="19" x2="12" y2="5"/>
+              <polyline points="5 12 12 5 19 12"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== LARGE ===================== -->
+    <div class="variant-block">
+      <span class="variant-label">Large</span>
+      <div class="promptbox promptbox--large">
+        <div class="promptbox-input">Large size...</div>
+        <div class="promptbox-toolbar">
+          <div class="toolbar-left">
+            <div class="icon-button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+              </svg>
+            </div>
+            <div class="icon-button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                <line x1="12" y1="19" x2="12" y2="23"/>
+                <line x1="8" y1="23" x2="16" y2="23"/>
+              </svg>
+            </div>
+          </div>
+          <div class="action-button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="19" x2="12" y2="5"/>
+              <polyline points="5 12 12 5 19 12"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
