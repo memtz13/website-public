@@ -6,6 +6,31 @@ a file-select button, speech-to-text button, and a primary-colored send/action
 button). It uses plain flexbox layout and inline SVG icons so it imports
 cleanly into Figma as editable layers.
 
+The file also includes a **States** section with all 9 states the component
+can be in, and the send-button state for each:
+
+| # | State | Send button |
+|---|---|---|
+| 1 | Empty / idle | Disabled |
+| 2 | Focused (empty) | Disabled |
+| 3 | Ready to send (has text) | Enabled |
+| 4 | Attachment attached | Enabled |
+| 5 | Recording (speech-to-text) | Disabled |
+| 6 | Sending | Disabled (spinner shown) |
+| 7 | Streaming response | Repurposed as Stop/Cancel (enabled) |
+| 8 | Component disabled | Disabled — all controls locked |
+| 9 | Error (validation failure) | Disabled |
+
+**Disable-send rules:**
+- Trimmed text is empty **and** there are no attachments.
+- A request is already sending or streaming (swap the button to "Stop" during
+  streaming rather than just graying it out, so the user keeps a control).
+- The mic is actively recording — no finalized transcript exists yet.
+- Validation fails: message over the max length, or an attachment is invalid
+  (bad type, too large, still uploading).
+- The whole component is disabled/readonly (no active session, quota
+  exceeded, etc.) — send is locked along with every other control.
+
 ## Importing into Figma
 
 1. Install the **html.to.design** plugin in Figma (Community plugins).

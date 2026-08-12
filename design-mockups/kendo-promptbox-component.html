@@ -185,6 +185,158 @@
     width: 20px;
     height: 20px;
   }
+
+  /* ---------- states section ---------- */
+  .section-heading {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+  }
+  .state-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .state-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .state-heading-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .state-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+  .state-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 9px;
+    border-radius: 999px;
+  }
+  .state-badge--enabled {
+    background: #dcfce7;
+    color: #166534;
+  }
+  .state-badge--disabled {
+    background: #f3f4f6;
+    color: #6b7280;
+  }
+  .state-caption {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 0;
+  }
+
+  /* disabled send button */
+  .action-button--disabled {
+    background: #e5e7eb;
+    color: #b0b4bb;
+  }
+
+  /* stop / streaming send button */
+  .action-button--stop {
+    background: #1f2937;
+  }
+
+  /* recording mic button */
+  .icon-button--active {
+    background: #fee2e2;
+    border-color: #fecaca;
+    color: #dc2626;
+  }
+  .recording-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #dc2626;
+    display: inline-block;
+    margin-right: 6px;
+  }
+  .recording-label {
+    display: flex;
+    align-items: center;
+    color: #dc2626;
+  }
+
+  /* focused ring */
+  .promptbox--focused {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+  }
+
+  /* error ring */
+  .promptbox--error {
+    border-color: #dc2626;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+  }
+  .error-text {
+    font-size: 12px;
+    color: #dc2626;
+    margin: 0;
+    padding: 0 14px 10px 14px;
+  }
+
+  /* disabled whole component */
+  .promptbox--disabled {
+    opacity: 0.55;
+  }
+
+  /* attachment chip */
+  .attachment-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0 2px 8px 2px;
+  }
+  .attachment-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 6px 10px;
+    font-size: 12px;
+    color: #374151;
+  }
+  .attachment-chip svg {
+    width: 14px;
+    height: 14px;
+    flex: none;
+    color: #6b7280;
+  }
+  .attachment-chip .remove {
+    width: 14px;
+    height: 14px;
+    flex: none;
+    color: #9aa0aa;
+  }
+
+  /* spinner */
+  .spinner {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-top-color: #ffffff;
+    animation: promptbox-spin 0.8s linear infinite;
+  }
+  @keyframes promptbox-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* dark placeholder for filled states */
+  .promptbox-input--filled {
+    color: #1f2937;
+  }
 </style>
 </head>
 <body>
@@ -289,6 +441,256 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- ===================== STATES ===================== -->
+    <div>
+      <h1 class="section-heading">States</h1>
+      <p class="page-subtitle">All 9 states of the PromptBox, and when the send button is enabled vs. disabled</p>
+    </div>
+
+    <div class="state-grid">
+
+      <!-- 1. Empty / idle -->
+      <div class="state-card">
+        <div class="state-heading-row">
+          <span class="state-name">1 · Empty / idle</span>
+          <span class="state-badge state-badge--disabled">Send disabled</span>
+        </div>
+        <p class="state-caption">No text, no attachments — nothing to submit.</p>
+        <div class="promptbox promptbox--medium">
+          <div class="promptbox-input">Message...</div>
+          <div class="promptbox-toolbar">
+            <div class="toolbar-left">
+              <div class="icon-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+              </div>
+              <div class="icon-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+              </div>
+            </div>
+            <div class="action-button action-button--disabled">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Focused (empty) -->
+      <div class="state-card">
+        <div class="state-heading-row">
+          <span class="state-name">2 · Focused (empty)</span>
+          <span class="state-badge state-badge--disabled">Send disabled</span>
+        </div>
+        <p class="state-caption">Input has focus (ring visible) but still contains nothing.</p>
+        <div class="promptbox promptbox--medium promptbox--focused">
+          <div class="promptbox-input">Message...</div>
+          <div class="promptbox-toolbar">
+            <div class="toolbar-left">
+              <div class="icon-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+              </div>
+              <div class="icon-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+              </div>
+            </div>
+            <div class="action-button action-button--disabled">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Ready to send -->
+      <div class="state-card">
+        <div class="state-heading-row">
+          <span class="state-name">3 · Ready to send</span>
+          <span class="state-badge state-badge--enabled">Send enabled</span>
+        </div>
+        <p class="state-caption">Non-whitespace text is present.</p>
+        <div class="promptbox promptbox--medium promptbox--focused">
+          <div class="promptbox-input promptbox-input--filled">What's the difference between authentication and authorization?</div>
+          <div class="promptbox-toolbar">
+            <div class="toolbar-left">
+              <div class="icon-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+              </div>
+              <div class="icon-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+              </div>
+            </div>
+            <div class="action-button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Attachment attached -->
+      <div class="state-card">
+        <div class="state-heading-row">
+          <span class="state-name">4 · Attachment attached</span>
+          <span class="state-badge state-badge--enabled">Send enabled</span>
+        </div>
+        <p class="state-caption">A file was added via the file-select button; text is optional once an attachment exists.</p>
+        <div class="promptbox promptbox--medium">
+          <div class="attachment-row">
+            <div class="attachment-chip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span>quarterly-report.pdf</span>
+              <svg class="remove" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </div>
+          </div>
+          <div class="promptbox-input">Message...</div>
+          <div class="promptbox-toolbar">
+            <div class="toolbar-left">
+              <div class="icon-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+              </div>
+              <div class="icon-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+              </div>
+            </div>
+            <div class="action-button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Recording -->
+      <div class="state-card">
+        <div class="state-heading-row">
+          <span class="state-name">5 · Recording (speech-to-text)</span>
+          <span class="state-badge state-badge--disabled">Send disabled</span>
+        </div>
+        <p class="state-caption">Mic is actively listening; no finalized transcript exists yet to submit.</p>
+        <div class="promptbox promptbox--medium">
+          <div class="promptbox-input recording-label"><span class="recording-dot"></span>Listening...</div>
+          <div class="promptbox-toolbar">
+            <div class="toolbar-left">
+              <div class="icon-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+              </div>
+              <div class="icon-button icon-button--active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+              </div>
+            </div>
+            <div class="action-button action-button--disabled">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Sending -->
+      <div class="state-card">
+        <div class="state-heading-row">
+          <span class="state-name">6 · Sending</span>
+          <span class="state-badge state-badge--disabled">Send disabled</span>
+        </div>
+        <p class="state-caption">Message just submitted; input is locked while awaiting the first response token.</p>
+        <div class="promptbox promptbox--medium promptbox--disabled">
+          <div class="promptbox-input promptbox-input--filled">What's the difference between authentication and authorization?</div>
+          <div class="promptbox-toolbar">
+            <div class="toolbar-left">
+              <div class="icon-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+              </div>
+              <div class="icon-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+              </div>
+            </div>
+            <div class="action-button">
+              <div class="spinner"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. Streaming -->
+      <div class="state-card">
+        <div class="state-heading-row">
+          <span class="state-name">7 · Streaming response</span>
+          <span class="state-badge state-badge--enabled">Repurposed as Stop (enabled)</span>
+        </div>
+        <p class="state-caption">Response is actively generating; the action button swaps from Send to Stop/Cancel.</p>
+        <div class="promptbox promptbox--medium promptbox--disabled">
+          <div class="promptbox-input promptbox-input--filled">What's the difference between authentication and authorization?</div>
+          <div class="promptbox-toolbar">
+            <div class="toolbar-left">
+              <div class="icon-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+              </div>
+              <div class="icon-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+              </div>
+            </div>
+            <div class="action-button action-button--stop">
+              <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. Component disabled -->
+      <div class="state-card">
+        <div class="state-heading-row">
+          <span class="state-name">8 · Component disabled</span>
+          <span class="state-badge state-badge--disabled">Send disabled</span>
+        </div>
+        <p class="state-caption">No active session / rate-limited / read-only — every control is locked, not just send.</p>
+        <div class="promptbox promptbox--medium promptbox--disabled">
+          <div class="promptbox-input">Start a new conversation to begin...</div>
+          <div class="promptbox-toolbar">
+            <div class="toolbar-left">
+              <div class="icon-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+              </div>
+              <div class="icon-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+              </div>
+            </div>
+            <div class="action-button action-button--disabled">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. Error -->
+      <div class="state-card">
+        <div class="state-heading-row">
+          <span class="state-name">9 · Error</span>
+          <span class="state-badge state-badge--disabled">Send disabled</span>
+        </div>
+        <p class="state-caption">Validation failure — e.g. attachment too large or over the character limit.</p>
+        <div class="promptbox promptbox--medium promptbox--error">
+          <div class="attachment-row">
+            <div class="attachment-chip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span>video-export.mov</span>
+              <svg class="remove" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </div>
+          </div>
+          <div class="promptbox-input">Message...</div>
+          <div class="promptbox-toolbar">
+            <div class="toolbar-left">
+              <div class="icon-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+              </div>
+              <div class="icon-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+              </div>
+            </div>
+            <div class="action-button action-button--disabled">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+            </div>
+          </div>
+        </div>
+        <p class="error-text">File exceeds 25 MB limit — remove it to continue.</p>
+      </div>
+
     </div>
 
   </div>
